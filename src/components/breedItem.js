@@ -3,13 +3,19 @@ import { Link } from 'react-router-dom';
  class BreedItem extends Component {
   render() {
       const {breed} = this.props
-      console.log('data more',breed)
+     
     return (
       <div className="col-md-3" >
         <div className="card">
             <div className="card-body">
-    <h5 className="card-title">{breed.name}</h5>
-                <Link className="muted" to="/cat-details">details....</Link>
+    <h3 className="card-title">{breed.name}</h3>
+    <h5 className="card-title">Origin:{breed.origin}</h5>
+    <h5 className="card-title">Temperament:{breed.temperament}</h5>
+               
+                <Link to={`/cat-details/${breed._id}`} className="btn btn-info mr-1">
+                  Details
+                </Link>
+
             </div>
     </div>
 </div>
