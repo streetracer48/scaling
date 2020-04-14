@@ -8,7 +8,7 @@ import HeroArea from './layouts/HeroArea';
 import Cats from './components/Cats';
 import CatDetails from './components/CatDetails';
 import Alert from './common/Alert'
-
+import SearchLists from './components/searchLists'
 class App extends Component {
   render() {
     const { toggleButton, toggleButtonAction } = this.props;
@@ -21,12 +21,13 @@ class App extends Component {
           <Fragment>
             <Navbar />
             <Alert />
+            <Route exact path='/breedcats/:breed' component={SearchLists} />
             <Route path="/" exact component={ HeroArea }/>
             <Route path="/" exact component={ Cats }/>
             <Switch>
               
               <Route exact path="/cats" component={ Cats } />
-              <Route exact path="/cat-details" component={ CatDetails } />
+              <Route exact path="/cat-details/:id" component={CatDetails} />
               
             </Switch>
           </Fragment>

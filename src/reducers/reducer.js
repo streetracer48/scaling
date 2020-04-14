@@ -2,14 +2,14 @@ import axios from 'axios';
 import {
     TOGGLE_BUTTON,
     FETCH_BREEDS_SUCCESS,
-    FETCH_BREEDS_FAIL,
-    FETCH_CAT_BY_ID_SUCCESS,
     FETCH_BREEDS_INIT,
+    FETCH_FAIL,
+    FETCH_BREED
 } from '../actions/types';
 
 
 const initialState = {
-  breed: null,
+  breed: {},
   breeds: [],
   loading: false
 };
@@ -31,13 +31,20 @@ export default function(state = initialState, action) {
           breeds: payload,
           loading: false
         };
-      case FETCH_BREEDS_FAIL:
+      case FETCH_FAIL:
         return {
           ...state,
-          post: null,
-          posts: null,
+          breed: null,
+          breeds: null,
           loading: false
         };
+
+        case FETCH_BREED:
+          return {
+            ...state,
+            breed: payload,
+            loading: false
+          };
       default:
         return state;
     }

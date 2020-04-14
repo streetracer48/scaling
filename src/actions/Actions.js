@@ -1,9 +1,9 @@
 import {
   TOGGLE_BUTTON,
   FETCH_BREEDS_SUCCESS,
-  FETCH_BREEDS_FAIL,
-  FETCH_CAT_BY_ID_SUCCESS,
+  FETCH_FAIL,
   FETCH_BREEDS_INIT,
+  FETCH_BREED
 } from './types';
 import axios from 'axios';
 import {createAlert} from './createAlert'
@@ -26,14 +26,6 @@ const fetchBreedsInit = () => {
 }
 
 
-
-const fetchCatsFail = (errors) => {
-  return {
-    type: FETCH_BREEDS_FAIL,
-    errors
-  }
-}
-
 export const getbreeds = (cat) => async dispatch => {
 
   try {
@@ -52,12 +44,35 @@ export const getbreeds = (cat) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    dispatch(createAlert('Something went wrong', "danger"))
 
     dispatch({
-      type: FETCH_BREEDS_FAIL,
+      type: FETCH_FAIL,
       payload: err
     });
   }
 }
+
+export const getbreedById = id => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    dispatch(fetchBreedsInit());
+    const res = await axios.get(`https://­breedscat.herokuapp.c­om/api/v1/breeds/${id}`, config);
+    dispatch({
+      type: FETCH_BREED,
+      payload: res.data
+    });
+  } catch (error) {
+    dispatch(createAlert('Something went wrong', "danger"))
+
+    dispatch({
+      type: FETCH_FAIL,
+      payload: error
+    });
+  }
+};
 
